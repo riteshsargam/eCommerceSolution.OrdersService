@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
 using eCommerce.OrdersMicroservice.BusinessLogicLayer.Validators;
-using eCommerce.ordersMicroservice.BusinessLogicLayer.Mappers;
+using eCommerce.OrdersMicroservice.BusinessLogicLayer.Mappers;
 using eCommerce.OrdersMicroservice.BusinessLogicLayer.ServiceContracts;
-using eCommerce.ordersMicroservice.BusinessLogicLayer.Services;
+using eCommerce.OrdersMicroservice.BusinessLogicLayer.Services;
 
 namespace eCommerece.OrdersMicroservice.BusinessLogicLayer;
 
