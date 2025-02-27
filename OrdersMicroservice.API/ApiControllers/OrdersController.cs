@@ -77,7 +77,7 @@ public class OrdersController : ControllerBase
 
         if (orderResponse == null)
         {
-            return Problem("Error in adding product");
+            return Problem("Error in adding order");
         }
 
 
@@ -103,7 +103,7 @@ public class OrdersController : ControllerBase
 
         if (orderResponse == null)
         {
-            return Problem("Error in adding product");
+            return Problem("Error in updating order");
         }
 
 
@@ -124,7 +124,7 @@ public class OrdersController : ControllerBase
 
         if (!isDeleted)
         {
-            return Problem("Error in adding product");
+            return Problem("Error in deleting order");
         }
 
         return Ok(isDeleted);
