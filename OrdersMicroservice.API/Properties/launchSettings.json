@@ -4,19 +4,23 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGODB_HOST": "localhost",
+        "MONGODB_PORT": "27017"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5125"
+      "applicationUrl": "http://localhost:5043"
     },
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGODB_HOST": "localhost",
+        "MONGODB_PORT": "27017"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7056;http://localhost:5125"
+      "applicationUrl": "https://localhost:7059;http://localhost:5043"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -42,8 +46,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:28590",
-      "sslPort": 44303
+      "applicationUrl": "http://localhost:45400",
+      "sslPort": 44389
     }
   }
 }
