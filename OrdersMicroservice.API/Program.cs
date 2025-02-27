@@ -1,6 +1,6 @@
 using eCommerce.OrdersMicroservice.API.Middleware;
-using eCommerece.OrderMicroservice.BusinessLogicLayer;
-using eCommerece.OrderMicroservice.DataAccessLayer;
+using eCommerece.OrdersMicroservice.BusinessLogicLayer;
+using eCommerece.OrdersMicroservice.DataAccessLayer;
 using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
