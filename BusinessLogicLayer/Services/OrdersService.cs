@@ -19,8 +19,10 @@ public class OrdersService : IOrdersService
     private readonly IMapper _mapper;
     private IOrdersRepository _ordersRepository;
     private UsersMicroserviceClient _usersMicroserviceClient;
+    private ProductsMicroserviceClient _productsMicroserviceClient;
 
-    public OrdersService(IOrdersRepository ordersRepository, IMapper mapper, IValidator<OrderAddRequest> orderAddRequestValidator, IValidator<OrderItemAddRequest> orderItemAddRequestValidator, IValidator<OrderUpdateRequest> orderUpdateRequestValidator, IValidator<OrderItemUpdateRequest> orderItemUpdateRequestValidator, UsersMicroserviceClient usersMicroserviceClient)
+
+    public OrdersService(IOrdersRepository ordersRepository, IMapper mapper, IValidator<OrderAddRequest> orderAddRequestValidator, IValidator<OrderItemAddRequest> orderItemAddRequestValidator, IValidator<OrderUpdateRequest> orderUpdateRequestValidator, IValidator<OrderItemUpdateRequest> orderItemUpdateRequestValidator, UsersMicroserviceClient usersMicroserviceClient, ProductsMicroserviceClient productsMicroserviceClient)
     {
         _orderAddRequestValidator = orderAddRequestValidator;
         _orderItemAddRequestValidator = orderItemAddRequestValidator;
@@ -29,6 +31,7 @@ public class OrdersService : IOrdersService
         _mapper = mapper;
         _ordersRepository = ordersRepository;
         _usersMicroserviceClient = usersMicroserviceClient;
+        _productsMicroserviceClient = productsMicroserviceClient;
     }
 
 
@@ -39,7 +42,6 @@ public class OrdersService : IOrdersService
         {
             throw new ArgumentNullException(nameof(orderAddRequest));
         }
-
 
 
         //Validate OrderAddRequest using Fluent Validations
@@ -60,14 +62,23 @@ public class OrdersService : IOrdersService
                 string errors = string.Join(", ", orderItemAddRequestValidationResult.Errors.Select(temp => temp.ErrorMessage));
                 throw new ArgumentException(errors);
             }
+
+
+            //TO DO: Add logic for checking if ProductID exists in Products microservice
+            ProductDTO? product = await _productsMicroserviceClient.GetProductByProductID(orderItemAddRequest.ProductID);
+            if (product == null)
+            {
+                throw new ArgumentException("Invalid Product ID");
+            }
         }
 
         //TO DO: Add logic for checking if UserID exists in Users microservice
-        UserDTO user = await _usersMicroserviceClient.GetUserByUserID(orderAddRequest.UserID);
+        UserDTO? user = await _usersMicroserviceClient.GetUserByUserID(orderAddRequest.UserID);
         if (user == null)
         {
             throw new ArgumentException("Invalid User ID");
         }
+
 
         //Convert data from OrderAddRequest to Order
         Order orderInput = _mapper.Map<Order>(orderAddRequest); //Map OrderAddRequest to 'Order' type (it invokes OrderAddRequestToOrderMappingProfile class)
@@ -122,14 +133,23 @@ public class OrdersService : IOrdersService
                 string errors = string.Join(", ", orderItemUpdateRequestValidationResult.Errors.Select(temp => temp.ErrorMessage));
                 throw new ArgumentException(errors);
             }
+
+
+            //TO DO: Add logic for checking if ProductID exists in Products microservice
+            ProductDTO? product = await _productsMicroserviceClient.GetProductByProductID(orderItemUpdateRequest.ProductID);
+            if (product == null)
+            {
+                throw new ArgumentException("Invalid Product ID");
+            }
         }
 
         //TO DO: Add logic for checking if UserID exists in Users microservice
-        UserDTO user = await _usersMicroserviceClient.GetUserByUserID(orderUpdateRequest.UserID);
+        UserDTO? user = await _usersMicroserviceClient.GetUserByUserID(orderUpdateRequest.UserID);
         if (user == null)
         {
             throw new ArgumentException("Invalid User ID");
         }
+
 
         //Convert data from OrderUpdateRequest to Order
         Order orderInput = _mapper.Map<Order>(orderUpdateRequest); //Map OrderUpdateRequest to 'Order' type (it invokes OrderUpdateRequestToOrderMappingProfile class)
