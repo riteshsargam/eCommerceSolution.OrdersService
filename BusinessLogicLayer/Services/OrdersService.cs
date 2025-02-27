@@ -38,6 +38,7 @@ public class OrdersService : IOrdersService
         }
 
 
+
         //Validate OrderAddRequest using Fluent Validations
         ValidationResult orderAddRequestValidationResult = await _orderAddRequestValidator.ValidateAsync(orderAddRequest);
         if (!orderAddRequestValidationResult.IsValid)
